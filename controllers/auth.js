@@ -3,7 +3,7 @@ import bcrypt from "bcryptjs";
 import { createError } from "../utils/error.js";
 import jwt from "jsonwebtoken";
 
-
+// app.use(cookieParser());
 //CREATE USER
 export const register = async (req, res, next) => {
     try {

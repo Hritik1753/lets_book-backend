@@ -5,6 +5,8 @@ import authRoute from './routes/auth.js';
 import hotelsRoute from './routes/hotels.js';
 import roomsRoute from './routes/rooms.js';
 import usersRoute from './routes/users.js';
+import cookieParser from 'cookie-parser';
+import cors from 'cors'
 const app = express();
 
 dotenv.config();
@@ -25,6 +27,8 @@ dotenv.config();
 // })
 
 //Routes
+app.use(cors());
+app.use(cookieParser());
 app.use(express.json());
 app.use("/api/auth", authRoute);
 app.use("/api/hotels", hotelsRoute);
@@ -43,7 +47,7 @@ app.use((err, req, res, next) => {
     });
   });
 
-app.listen('3000', () => {
+app.listen('8800', () => {
    
-    console.log("server is running on port number 3000");
+    console.log("server is running on port number 8800");
 })
