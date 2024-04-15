@@ -16,7 +16,27 @@ export const register = async (req, res, next) => {
       });
   
       await newUser.save();
-      res.status(200).send("User has been created.");
+     
+
+     
+      // when he do register then he also get directly loged in
+      const token = jwt.sign(
+        { id: newUser._id, isAdmin: newUser.isAdmin },
+        process.env.JWT
+      );
+  
+      const { password, isAdmin, ...otherDetails } = newUser._doc;
+      res
+        .cookie("access_token", token, { //here we use cookie-parser for save the jwt authentication key
+          httpOnly: true, //it does not allow to any client secret to reach this cookie so its much more secure
+        })
+        .status(200)
+        .json({ details: { ...otherDetails }, isAdmin });
+      
+      //  res.status(200).send("User has been created.");
+      
+
+
     } catch (err) {
       next(err);
     }
